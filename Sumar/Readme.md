@@ -26,4 +26,4 @@
 
 1. Clona este repositorio en tu máquina local:
    ```bash
-   git clone https://github.com/tu_usuario/tu_repo.git
+   git clone https://github.com/Daniel-L10N/Juegos.git
