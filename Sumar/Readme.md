@@ -2,7 +2,7 @@
 
 ## Versión: 0.0.1
 
-![Navbar](../navbar.jpg)
+![Navbar](./suma.jpg)
 
 ### Descripción
 
