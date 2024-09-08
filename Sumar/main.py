@@ -21,8 +21,15 @@ def main():
         for i in list_namber:
             resul += i
         return resul
+    def promedio(valueUser, value):
+        if valueUser > value:
+            return round(value/valueUser*100, 2)
+        else:
+            return round(valueUser/value*100, 2)
+
     print (f"Su Resultado Fue De [{valor_user}] Y El Resultado Es [{calculo()}]")
-    print (f"Tubo un puntage del {valor_user/calculo()*100}%")
+    print(f"Su porcentage de asertacion fue de {promedio(valor_user, calculo())}%")
 
 if __name__ ==  '__main__':
     main()
+        
