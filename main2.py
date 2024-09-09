@@ -41,15 +41,15 @@ def calcResult(datos):
 	print("¿Cuánto da el resultado de las siguientes operaciones?\n")
 	for i in range(datos["cantEj"]):
 		if i == 0:
-			randOp = randint(0,2)
+			randOp = 0
 		else:
 			randOp = randint(0,4)
 			
 		min = datos["valMin"]
 		max = datos["valMax"]
-		operaciones =["Suma", "Resta", "Multiplicación", "División"]
+		operaciones =["Suma", "Resta", "Multiplica", "Divide"]
 		randNum = randint(min,max)
-		if res == 0:
+		if res <= 0: 
 			randOp=0
 		if randOp == 1 and (res -min) <0:
 			randOp=0
@@ -97,4 +97,5 @@ while True:
 porcAciert = calcPorcAciert(usRes, res)
 print(f"Respuesta correcta: {res}")
 print(f"Su porcentaje de acierto es del: {(porcAciert*100):.2f}%")
-                       
+
+	
