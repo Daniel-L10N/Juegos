@@ -32,7 +32,7 @@ def main():
                 outputOperation(operationRandom, valueRandom)
             elif operationRandom == operation[1]:
                 if (value - valueRandom) < 0:
-                    value += valueRandom*2
+                    value += valueRandom
                     outputOperation(operation[0], valueRandom)
                 else:
                     outputOperation(operationRandom, valueRandom )
