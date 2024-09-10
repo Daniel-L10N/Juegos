@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Sumas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin-top: 50px;
+        }
+        label, input, button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Prueba de Sumas</h1>
+    
+    <div id="config-section">
+        <label for="numEjercicios">Número de ejercicios: </label>
+        <input type="number" id="numEjercicios" min="1" required>
+        <br>
+        <label for="rangoMin">Rango mínimo: </label>
+        <input type="number" id="rangoMin" required>
+        <br>
+        <label for="rangoMax">Rango máximo: </label>
+        <input type="number" id="rangoMax" required>
+        <br>
+        <button onclick="iniciarEjercicios()">Iniciar</button>
+    </div>
+
+    <div id="ejercicios-section" style="display: none;">
+        <p id="pregunta"></p>
+        <input type="number" id="respuestaUsuario">
+        <button onclick="verificarRespuesta()">Siguiente</button>
+    </div>
+
+    <div id="resultado-section" style="display: none;">
+        <p id="resultadoFinal"></p>
+        <p id="porcentajeAciertos"></p>
+    </div>
+
+    <script>
+        let numEjercicios, rangoMin, rangoMax;
+        let ejercicioActual = 0;
+        let respuestasCorrectas = 0;
+        let sumaCorrecta = 0;
+
+        function iniciarEjercicios() {
+            numEjercicios = parseInt(document.getElementById('numEjercicios').value);
+            rangoMin = parseInt(document.getElementById('rangoMin').value);
+            rangoMax = parseInt(document.getElementById('rangoMax').value);
+
+            if (numEjercicios > 0 && rangoMin < rangoMax) {
+                document.getElementById('config-section').style.display = 'none';
+                document.getElementById('ejercicios-section').style.display = 'block';
+                mostrarEjercicio();
+            } else {
+                alert("Por favor ingresa valores válidos.");
+            }
+        }
+
+        function mostrarEjercicio() {
+            if (ejercicioActual < numEjercicios) {
+                let num1 = Math.floor(Math.random() * (rangoMax - rangoMin + 1)) + rangoMin;
+                let num2 = Math.floor(Math.random() * (rangoMax - rangoMin + 1)) + rangoMin;
+                sumaCorrecta = num1 + num2;
+
+                document.getElementById('pregunta').textContent = `¿Cuánto es ${num1} + ${num2}?`;
+                document.getElementById('respuestaUsuario').value = ''; // limpiar la respuesta anterior
+            } else {
+                mostrarResultados();
+            }
+        }
+
+        function verificarRespuesta() {
+            let respuestaUsuario = parseInt(document.getElementById('respuestaUsuario').value);
+            if (respuestaUsuario === sumaCorrecta) {
+                respuestasCorrectas++;
+            }
+
+            ejercicioActual++;
+            mostrarEjercicio();
+        }
+
+        function mostrarResultados() {
+            let porcentaje = (respuestasCorrectas / numEjercicios) * 100;
+
+            document.getElementById('ejercicios-section').style.display = 'none';
+            document.getElementById('resultado-section').style.display = 'block';
+            document.getElementById('resultadoFinal').textContent = `Has acertado ${respuestasCorrectas} de ${numEjercicios} ejercicios.`;
+            document.getElementById('porcentajeAciertos').textContent = `Tu porcentaje de aciertos es ${porcentaje.toFixed(2)}%.`;
+        }
+    </script>
+
+</body>
+</html>
