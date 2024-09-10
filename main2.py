@@ -28,9 +28,8 @@ def entrada():
 				
 			datos [key]= num
 			break
-	if datos["valMin"] >= datos["valMax"]:
-		print(datos["valMin"], datos["valMax"])
 	return datos 
+	
 def output(op, dato):
 	print(f"{op} : {dato}")
 	
@@ -59,8 +58,8 @@ def calcResult(datos):
 			if randOp == tipo:
 			  res = fn(res, randNum)
 			  output(
-					operaciones[tipo],
-					randNum
+				operaciones[tipo],
+				randNum
 				)
 		
 		operar(0, lambda rs,num : rs+num)
@@ -69,6 +68,7 @@ def calcResult(datos):
 		operar(3, lambda rs,num : rs/num)
 		
 	return res
+	
 def calcPorcAciert(usRes, res):
 	res+=1
 	usRes+=1
