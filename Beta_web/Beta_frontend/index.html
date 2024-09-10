@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercita tu Mente Sumando Números</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+            margin: 20px;
+        }
+        h1 {
+            color: #2a9df4;
+        }
+        .container {
+            border: 2px dashed #4caf50;
+            padding: 20px;
+            border-radius: 15px;
+            width: 60%;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .pencil {
+            display: inline-block;
+            background-image: url('https://image.flaticon.com/icons/png/512/281/281760.png');
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid #4caf50;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #2a9df4;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1a73e8;
+        }
+        .resultado, .porcentaje {
+            font-weight: bold;
+            color: #ff5722;
+        }
+        .resultado-final {
+            display: flex;
+            justify-content: space-between;
+        }
+        .historial {
+            width: 40%;
+            border-left: 2px solid #4caf50;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ejercita tu mente sumando números</h1>
+    <div class="pencil"></div>
+    
+    <div class="container" id="config-section">
+        <label for="numEjercicios">Cantidad de cálculos a realizar: </label>
+        <input type="number" id="numEjercicios" min="1" required>
+        <br>
+        <label for="rangoMin">Valor mínimo: </label>
+        <input type="number" id="rangoMin" required>
+        <br>
+        <label for="rangoMax">Valor máximo: </label>
+        <input type="number" id="rangoMax" required>
+        <br>
+        <button onclick="iniciarEjercicios()">Iniciar</button>
+    </div>
+
+    <div class="container" id="ejercicios-section" style="display: none;">
+        <p id="valores"></p>
+        <button onclick="mostrarSiguiente()">Siguiente número</button>
+    </div>
+
+    <div class="container" id="resultado-section" style="display: none;">
+        <p>Ingrese el valor calculado de la suma total:</p>
+        <input type="number" id="resultadoUsuario">
+        <button onclick="mostrarResultado()">Verificar Resultado</button>
+    </div>
+
+    <div class="container resultado-final" id="final-section" style="display: none;">
+        <div>
+            <p class="resultado" id="resultadoFinal"></p>
+            <p class="porcentaje" id="porcentajeAciertos"></p>
+        </div>
+        <div class="historial" id="historial">
+            <h3>Historial de sumas</h3>
+            <ul id="listaHistorial"></ul>
+        </div>
+    </div>
+
+    <script>
+        let numEjercicios, rangoMin, rangoMax;
+        let listaNumeros = [];
+        let sumaCorrecta = 0;
+        let indice = 0;
+
+        function iniciarEjercicios() {
+            numEjercicios = parseInt(document.getElementById('numEjercicios').value);
+            rangoMin = parseInt(document.getElementById('rangoMin').value);
+            rangoMax = parseInt(document.getElementById('rangoMax').value);
+
+            if (numEjercicios > 0 && rangoMin < rangoMax) {
+                document.getElementById('config-section').style.display = 'none';
+                document.getElementById('ejercicios-section').style.display = 'block';
+                generarNumeros();
+            } else {
+                alert("Por favor ingresa valores válidos.");
+            }
+        }
+
+        function generarNumeros() {
+            for (let i = 0; i < numEjercicios; i++) {
+                let numeroAleatorio = Math.floor(Math.random() * (rangoMax - rangoMin + 1)) + rangoMin;
+                listaNumeros.push(numeroAleatorio);
+            }
+            mostrarSiguiente();
+        }
+
+        function mostrarSiguiente() {
+            if (indice < listaNumeros.length) {
+                document.getElementById('valores').textContent = `Número ${indice + 1}: ${listaNumeros[indice]}`;
+                sumaCorrecta += listaNumeros[indice];
+                agregarAlHistorial(listaNumeros[indice], indice + 1);
+                indice++;
+            } else {
+                document.getElementById('ejercicios-section').style.display = 'none';
+                document.getElementById('resultado-section').style.display = 'block';
+            }
+        }
+
+        function agregarAlHistorial(valor, numero) {
+            let historial = document.getElementById('listaHistorial');
+            let item = document.createElement('li');
+            item.textContent = `Número ${numero}: ${valor}`;
+            historial.appendChild(item);
+        }
+
+        function mostrarResultado() {
+            let resultadoUsuario = parseInt(document.getElementById('resultadoUsuario').value);
+            let porcentajeAcierto = calcularPorcentaje(resultadoUsuario, sumaCorrecta);
+
+            document.getElementById('resultado-section').style.display = 'none';
+            document.getElementById('final-section').style.display = 'flex';
+
+            document.getElementById('resultadoFinal').textContent = `Su resultado fue de ${resultadoUsuario}, y la suma correcta es ${sumaCorrecta}.`;
+            document.getElementById('porcentajeAciertos').textContent = `Porcentaje de acierto: ${porcentajeAcierto}%.`;
+        }
+
+        function calcularPorcentaje(valorUsuario, valorCorrecto) {
+            if (valorUsuario > valorCorrecto) {
+                return ((valorCorrecto / valorUsuario) * 100).toFixed(2);
+            } else {
+                return ((valorUsuario / valorCorrecto) * 100).toFixed(2);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
