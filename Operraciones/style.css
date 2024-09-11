@@ -1,0 +1,27 @@
+.calculator {
+    height: 200px;
+    margin: 0 auto;
+    border: 4px solid red;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .screen {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid black;
+  }
+  
+  button {
+    display: flex;
+    width: 130px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 3px solid white;
+    background-color: black;
+    color: white;
+  }
